@@ -6,16 +6,18 @@
   <title>Kimberly Bone — Software Engineer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
       --black: #0f0f0f;
-      --white: #f8f6f1;
+      --white: #f9f9f7;
+      --pure-white: #ffffff;
       --ink: #1c1c1c;
       --muted: #888580;
-      --accent: #c8603a;
+      --accent: #0f0f0f;
+      --accent-2: #0f0f0f;
       --rule: #e2dfd8;
       --serif: 'DM Serif Display', Georgia, serif;
       --sans: 'DM Sans', system-ui, sans-serif;
@@ -31,6 +33,7 @@
       font-size: 16px;
       line-height: 1.7;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
     /* ── NAV ── */
@@ -42,7 +45,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 1.25rem 3rem;
-      background: var(--white);
+      background: var(--pure-white);
       border-bottom: 1px solid var(--rule);
       opacity: 0;
       animation: fadeDown 0.6s 0.1s forwards;
@@ -86,7 +89,7 @@
       padding: 6rem 3rem 6rem 3rem;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-end;
       border-right: 1px solid var(--rule);
       opacity: 0;
       animation: fadeUp 0.8s 0.3s forwards;
@@ -103,23 +106,31 @@
 
     .hero-name {
       font-family: var(--serif);
-      font-size: clamp(3.5rem, 6vw, 5.5rem);
-      line-height: 1.05;
+      font-size: clamp(4.5rem, 8vw, 7.5rem);
+      line-height: 0.95;
       color: var(--ink);
-      margin-bottom: 2rem;
+      margin-bottom: 2.5rem;
+      letter-spacing: -0.01em;
     }
 
     .hero-name em {
       font-style: italic;
       color: var(--accent);
+      display: block;
+    }
+
+    .hero-bottom {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 2rem;
     }
 
     .hero-desc {
-      font-size: 1.05rem;
+      font-size: 1rem;
       color: var(--muted);
-      max-width: 420px;
+      max-width: 320px;
       line-height: 1.8;
-      margin-bottom: 2.5rem;
     }
 
     .hero-cta {
@@ -134,61 +145,92 @@
       text-decoration: none;
       border-bottom: 1.5px solid var(--accent);
       padding-bottom: 2px;
+      white-space: nowrap;
       transition: color 0.2s, gap 0.2s;
     }
 
     .hero-cta:hover { color: var(--accent); gap: 1rem; }
 
+    /* Hero image */
     .hero-right {
-      padding: 6rem 3rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
+      position: relative;
+      overflow: hidden;
       opacity: 0;
       animation: fadeUp 0.8s 0.5s forwards;
     }
 
-    .hero-stats {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-      margin-bottom: 3rem;
+    .hero-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+      filter: saturate(0.85);
+      transition: transform 8s ease, filter 0.4s ease;
     }
 
-    .stat {
+    .hero-right:hover .hero-image {
+      transform: scale(1.03);
+      filter: saturate(1);
+    }
+
+    .hero-image-caption {
+      position: absolute;
+      bottom: 2rem;
+      right: 2rem;
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+    }
+
+    /* ── MARQUEE ── */
+    .marquee-strip {
       border-top: 1px solid var(--rule);
-      padding-top: 1.2rem;
-    }
-
-    .stat-num {
-      font-family: var(--serif);
-      font-size: 2.2rem;
-      color: var(--ink);
-      line-height: 1;
-      margin-bottom: 0.3rem;
-    }
-
-    .stat-label {
-      font-size: 0.8rem;
-      color: var(--muted);
-      letter-spacing: 0.05em;
-    }
-
-    .hero-stack {
+      border-bottom: 1px solid var(--rule);
+      background: var(--ink);
+      padding: 0.85rem 0;
+      overflow: hidden;
       display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
     }
 
-    .tag {
+    .marquee-track {
+      display: flex;
+      gap: 0;
+      animation: marquee 28s linear infinite;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .marquee-strip:hover .marquee-track { animation-play-state: paused; }
+
+    .marquee-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 0 2rem;
       font-size: 0.72rem;
       font-weight: 500;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--muted);
-      border: 1px solid var(--rule);
-      padding: 0.3rem 0.7rem;
-      border-radius: 2px;
+      color: var(--white);
+    }
+
+    .marquee-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
     }
 
     /* ── SECTION SHARED ── */
@@ -220,6 +262,7 @@
     }
 
     /* ── ABOUT ── */
+    #about { background: var(--pure-white); }
     #about .about-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -266,81 +309,166 @@
     #projects .projects-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 0;
+      gap: 1.5rem;
     }
 
     .project-card {
-      padding: 2.5rem;
-      border: 1px solid var(--rule);
-      margin: -1px 0 0 -1px;
-      transition: background 0.2s;
       position: relative;
       overflow: hidden;
+      border-radius: 3px;
+      aspect-ratio: 4/3;
+      cursor: pointer;
     }
 
-    .project-card::before {
-      content: '';
+    /* each card has a distinct background color/image */
+    .project-card-bg {
       position: absolute;
-      top: 0; left: 0;
-      width: 3px; height: 0;
-      background: var(--accent);
-      transition: height 0.3s;
+      inset: 0;
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
-    .project-card:hover::before { height: 100%; }
-    .project-card:hover { background: #faf8f4; }
+    .project-card:hover .project-card-bg {
+      transform: scale(1.05);
+    }
+
+    .project-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(15,15,15,0.92) 0%,
+        rgba(15,15,15,0.5) 50%,
+        rgba(15,15,15,0.1) 100%
+      );
+      transition: background 0.4s;
+    }
+
+    .project-card:hover .project-card-overlay {
+      background: linear-gradient(
+        to top,
+        rgba(15,15,15,0.96) 0%,
+        rgba(15,15,15,0.6) 55%,
+        rgba(15,15,15,0.15) 100%
+      );
+    }
+
+    .project-card-content {
+      position: absolute;
+      inset: 0;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
 
     .project-tag {
-      font-size: 0.68rem;
+      font-size: 0.65rem;
       font-weight: 500;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--accent);
-      margin-bottom: 1rem;
+      margin-bottom: 0.6rem;
     }
 
     .project-name {
       font-family: var(--serif);
-      font-size: 1.45rem;
-      color: var(--ink);
-      margin-bottom: 0.8rem;
-      line-height: 1.2;
+      font-size: 1.6rem;
+      color: #f8f6f1;
+      margin-bottom: 0.6rem;
+      line-height: 1.15;
     }
 
     .project-desc {
-      font-size: 0.9rem;
-      color: var(--muted);
-      line-height: 1.75;
-      margin-bottom: 1.5rem;
+      font-size: 0.85rem;
+      color: rgba(248,246,241,0.65);
+      line-height: 1.7;
+      margin-bottom: 1.2rem;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.4s ease, opacity 0.35s ease, margin 0.4s ease;
+    }
+
+    .project-card:hover .project-desc {
+      max-height: 8rem;
+      opacity: 1;
     }
 
     .project-stack {
       display: flex;
       flex-wrap: wrap;
       gap: 0.4rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.35s 0.05s ease, transform 0.35s 0.05s ease;
     }
 
+    .project-card:hover .project-stack { opacity: 1; transform: translateY(0); }
+
+    .tag {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(248,246,241,0.6);
+      border: 1px solid rgba(248,246,241,0.2);
+      padding: 0.25rem 0.6rem;
+      border-radius: 2px;
+    }
+
+    /* non-card tags (about, exp sections) */
+    .tag-light {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border: 1px solid var(--rule);
+      padding: 0.25rem 0.6rem;
+      border-radius: 2px;
+    }
+
+    .project-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.35s 0.1s ease, transform 0.35s 0.1s ease;
+    }
+
+    .project-card:hover .project-links { opacity: 1; transform: translateY(0); }
+
     .project-link {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 500;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--ink);
+      color: #f8f6f1;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      border-bottom: 1px solid var(--rule);
+      border-bottom: 1px solid rgba(248,246,241,0.35);
       padding-bottom: 2px;
       transition: border-color 0.2s, color 0.2s;
     }
 
     .project-link:hover { color: var(--accent); border-color: var(--accent); }
 
+    .project-link-disabled {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(248,246,241,0.35);
+    }
+
     .project-wip {
       display: inline-block;
-      font-size: 0.65rem;
+      font-size: 0.6rem;
       font-weight: 500;
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -348,11 +476,55 @@
       color: white;
       padding: 0.2rem 0.5rem;
       border-radius: 2px;
-      margin-left: 0.6rem;
+      margin-left: 0.5rem;
       vertical-align: middle;
     }
 
+    /* card-specific backgrounds */
+    .card-1 { background: #141414; }
+    .card-2 { background: #0f0f0f; }
+    .card-3 { background: #1a1a1a; }
+    .card-4 { background: #111111; }
+
+    .card-1 .project-card-bg {
+      background: radial-gradient(ellipse at 70% 30%, #ffffff0f 0%, transparent 65%),
+                  radial-gradient(ellipse at 20% 80%, #ffffff08 0%, transparent 55%);
+    }
+    .card-2 .project-card-bg {
+      background: radial-gradient(ellipse at 30% 40%, #ffffff0a 0%, transparent 65%),
+                  radial-gradient(ellipse at 80% 70%, #ffffff06 0%, transparent 55%);
+    }
+    .card-3 .project-card-bg {
+      background: radial-gradient(ellipse at 60% 30%, #ffffff0d 0%, transparent 65%),
+                  radial-gradient(ellipse at 30% 75%, #ffffff08 0%, transparent 55%);
+    }
+    .card-4 .project-card-bg {
+      background: radial-gradient(ellipse at 50% 50%, #ffffff06 0%, transparent 70%);
+    }
+
+    /* card-4 "more on the way" */
+    .card-more {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--rule);
+      border-radius: 3px;
+      aspect-ratio: 4/3;
+      background: var(--pure-white);
+      transition: background 0.2s;
+    }
+    .card-more:hover { background: #f5f5f5; }
+    .card-more-inner { text-align: center; color: var(--muted); }
+    .card-more-inner .card-more-title {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      margin-bottom: 0.4rem;
+      color: var(--ink);
+    }
+    .card-more-inner p { font-size: 0.85rem; }
+
     /* ── EXPERIENCE ── */
+    #experience { background: var(--pure-white); }
     #experience .exp-list {
       display: flex;
       flex-direction: column;
@@ -366,11 +538,8 @@
       border-top: 1px solid var(--rule);
     }
 
-    .exp-item:last-child { border-bottom: 1px solid var(--rule); }
 
-    .exp-meta {
-      padding-top: 0.15rem;
-    }
+    .exp-meta { padding-top: 0.15rem; }
 
     .exp-date {
       font-size: 0.78rem;
@@ -509,8 +678,9 @@
       .nav-links { gap: 1.5rem; }
 
       #home { grid-template-columns: 1fr; }
-      .hero-left { padding: 5rem 1.5rem 2rem; border-right: none; }
-      .hero-right { padding: 2rem 1.5rem 4rem; }
+      .hero-left { padding: 5rem 1.5rem 2rem; border-right: none; min-height: 60vh; }
+      .hero-right { min-height: 50vw; }
+      .hero-bottom { flex-direction: column; align-items: flex-start; gap: 1.2rem; }
 
       section { padding: 4rem 1.5rem; }
 
@@ -519,7 +689,6 @@
       .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
 
       .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
-
       footer { flex-direction: column; gap: 0.5rem; text-align: center; }
     }
   </style>
@@ -528,7 +697,7 @@
 
   <!-- NAV -->
   <nav>
-    <a href="#home" class="nav-logo">Kimberly Bone</a>
+    <a href="#home" class="nav-logo">KB</a>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#projects">Projects</a></li>
@@ -542,37 +711,48 @@
     <div class="hero-left">
       <p class="hero-label">Software Engineer — NYC</p>
       <h1 class="hero-name">Kimberly<br><em>Bone.</em></h1>
-      <p class="hero-desc">
-        Full-stack engineer with a frontend lean, focused on building consumer-facing products that people actually enjoy using. Currently at Amazon / One Medical.
-      </p>
-      <a href="#projects" class="hero-cta">View my work &rarr;</a>
+      <div class="hero-bottom">
+        <p class="hero-desc">
+          Full-stack engineer with a frontend lean, focused on building consumer-facing products that people actually enjoy using. Currently at Amazon / One Medical.
+        </p>
+        <a href="#projects" class="hero-cta">View my work &rarr;</a>
+      </div>
     </div>
     <div class="hero-right">
-      <div class="hero-stats">
-        <div class="stat">
-          <div class="stat-num">4+</div>
-          <div class="stat-label">Years of experience</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">2</div>
-          <div class="stat-label">Companies shipped at</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">NYC</div>
-          <div class="stat-label">Based in New York City</div>
-        </div>
-      </div>
-      <div class="hero-stack">
-        <span class="tag">React</span>
-        <span class="tag">TypeScript</span>
-        <span class="tag">GraphQL</span>
-        <span class="tag">Node.js</span>
-        <span class="tag">Ruby on Rails</span>
-        <span class="tag">PostgreSQL</span>
-        <span class="tag">AWS</span>
-      </div>
+      <img
+        class="hero-image"
+        src="IMG_3528.jpeg"
+        alt="Kimberly Bone — New York City"
+      />
+      <span class="hero-image-caption">New York City</span>
     </div>
   </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-strip" aria-hidden="true">
+    <div class="marquee-track">
+      <span class="marquee-item">Fashion <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Travel <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Media <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Consumer Products <span class="marquee-dot"></span></span>
+      <span class="marquee-item">React <span class="marquee-dot"></span></span>
+      <span class="marquee-item">TypeScript <span class="marquee-dot"></span></span>
+      <span class="marquee-item">GraphQL <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Node.js <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Full-Stack <span class="marquee-dot"></span></span>
+      <span class="marquee-item">NYC <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Fashion <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Travel <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Media <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Consumer Products <span class="marquee-dot"></span></span>
+      <span class="marquee-item">React <span class="marquee-dot"></span></span>
+      <span class="marquee-item">TypeScript <span class="marquee-dot"></span></span>
+      <span class="marquee-item">GraphQL <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Node.js <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Full-Stack <span class="marquee-dot"></span></span>
+      <span class="marquee-item">NYC <span class="marquee-dot"></span></span>
+    </div>
+  </div>
 
   <!-- ABOUT -->
   <section id="about">
@@ -619,63 +799,77 @@
     </div>
     <div class="projects-grid reveal">
 
-      <div class="project-card">
-        <div class="project-tag">Full Stack &middot; AI Product</div>
-        <div class="project-name">Job Tracker</div>
-        <p class="project-desc">
-          An AI-assisted job search operating system that generates and tailors resumes to specific job descriptions while keeping leads, applications, reminders, and resume versions in one place. It also manages pipeline stages and syncs jobs from multiple ATS providers.
-        </p>
-        <div class="project-stack">
-          <span class="tag">Next.js</span>
-          <span class="tag">TypeScript</span>
-          <span class="tag">Prisma</span>
-          <span class="tag">Supabase</span>
-          <span class="tag">Playwright</span>
-          <span class="tag">LLM Integration</span>
-          <span class="tag">ATS APIs</span>
-        </div>
-        <div style="display:flex; gap:1rem; flex-wrap:wrap; align-items:center;">
-          <a href="https://hustleboard.vercel.app" target="_blank" rel="noopener noreferrer" class="project-link">View live &rarr;</a>
-          <a href="https://github.com/kimberlybone/job-tracker" target="_blank" rel="noopener noreferrer" class="project-link">View on GitHub &rarr;</a>
+      <!-- Card 1: Job Tracker -->
+      <div class="project-card card-1">
+        <div class="project-card-bg"></div>
+        <div class="project-card-overlay"></div>
+        <div class="project-card-content">
+          <div class="project-tag">Full Stack &middot; AI Product</div>
+          <div class="project-name">Job Tracker</div>
+          <p class="project-desc">
+            An AI-assisted job search OS that generates and tailors resumes to specific job descriptions while keeping leads, applications, reminders, and pipeline stages in one place.
+          </p>
+          <div class="project-stack">
+            <span class="tag">Next.js</span>
+            <span class="tag">TypeScript</span>
+            <span class="tag">Supabase</span>
+            <span class="tag">LLM</span>
+          </div>
+          <div class="project-links">
+            <a href="https://hustleboard.vercel.app" target="_blank" rel="noopener noreferrer" class="project-link">View live &rarr;</a>
+            <a href="https://github.com/kimberlybone/job-tracker" target="_blank" rel="noopener noreferrer" class="project-link">GitHub &rarr;</a>
+          </div>
         </div>
       </div>
 
-      <div class="project-card">
-        <div class="project-tag">Full Stack &middot; Consumer Product</div>
-        <div class="project-name">Outfit Planning</div>
-        <p class="project-desc">
-          A digital wardrobe and trip planning app for organizing your closet, building outfits, and packing more intentionally for travel. It includes closet management, outfit generation, calendar planning, trip-based outfit assignment, and wardrobe stats.
-        </p>
-        <div class="project-stack">
-          <span class="tag">React</span>
-          <span class="tag">TypeScript</span>
-          <span class="tag">Vite</span>
-          <span class="tag">Supabase</span>
-          <span class="tag">Recharts</span>
+      <!-- Card 2: Outfit Planning -->
+      <div class="project-card card-2">
+        <div class="project-card-bg"></div>
+        <div class="project-card-overlay"></div>
+        <div class="project-card-content">
+          <div class="project-tag">Full Stack &middot; Consumer Product</div>
+          <div class="project-name">Outfit Planner</div>
+          <p class="project-desc">
+            A digital wardrobe and trip planning app for organizing your closet, building outfits, and packing more intentionally for travel.
+          </p>
+          <div class="project-stack">
+            <span class="tag">React</span>
+            <span class="tag">TypeScript</span>
+            <span class="tag">Vite</span>
+            <span class="tag">Supabase</span>
+          </div>
+          <div class="project-links">
+            <span class="project-link-disabled">Link coming soon</span>
+          </div>
         </div>
-        <span class="project-link" aria-disabled="true">Link coming soon</span>
       </div>
 
-      <!-- Project 3 placeholder -->
-      <div class="project-card">
-        <div class="project-tag">API &middot; Backend</div>
-        <div class="project-name">Project Title <span class="project-wip">Coming Soon</span></div>
-        <p class="project-desc">
-          A short description of what this project does and why you built it. What problem does it solve? Who is it for? What's the one interesting thing about how you built it?
-        </p>
-        <div class="project-stack">
-          <span class="tag">Ruby on Rails</span>
-          <span class="tag">PostgreSQL</span>
-          <span class="tag">AWS</span>
+      <!-- Card 3: Coming soon -->
+      <div class="project-card card-3">
+        <div class="project-card-bg"></div>
+        <div class="project-card-overlay"></div>
+        <div class="project-card-content">
+          <div class="project-tag">API &middot; Backend</div>
+          <div class="project-name">Project Title <span class="project-wip">Coming Soon</span></div>
+          <p class="project-desc">
+            A short description of what this project does and why you built it. What problem does it solve? Who is it for?
+          </p>
+          <div class="project-stack">
+            <span class="tag">Ruby on Rails</span>
+            <span class="tag">PostgreSQL</span>
+            <span class="tag">AWS</span>
+          </div>
+          <div class="project-links">
+            <span class="project-link-disabled">Link coming soon</span>
+          </div>
         </div>
-        <span class="project-link" aria-disabled="true">Link coming soon</span>
       </div>
 
-      <!-- Add more -->
-      <div class="project-card" style="background: #faf8f4; display: flex; align-items: center; justify-content: center; min-height: 260px;">
-        <div style="text-align: center; color: var(--muted);">
-          <div style="font-family: var(--serif); font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--ink);">More on the way</div>
-          <div style="font-size: 0.85rem;">Currently building something new.</div>
+      <!-- Card 4: More on the way -->
+      <div class="card-more">
+        <div class="card-more-inner">
+          <div class="card-more-title">More on the way</div>
+          <p>Currently building something new.</p>
         </div>
       </div>
 
@@ -701,13 +895,13 @@
             Built and maintained full-stack features for patient-facing healthcare products, spanning backend APIs, frontend interfaces, internal tooling, and test coverage. Contributed to React component systems, GraphQL API improvements, and product-facing experiences used by patients and care teams. Over time, I grew from working within tightly scoped implementations to owning broader product and platform work across multiple teams.
           </div>
           <div class="exp-tags">
-            <span class="tag">React</span>
-            <span class="tag">TypeScript</span>
-            <span class="tag">GraphQL</span>
-            <span class="tag">Apollo</span>
-            <span class="tag">Ruby on Rails</span>
-            <span class="tag">Cypress</span>
-            <span class="tag">Storybook</span>
+            <span class="tag-light">React</span>
+            <span class="tag-light">TypeScript</span>
+            <span class="tag-light">GraphQL</span>
+            <span class="tag-light">Apollo</span>
+            <span class="tag-light">Ruby on Rails</span>
+            <span class="tag-light">Cypress</span>
+            <span class="tag-light">Storybook</span>
           </div>
         </div>
       </div>
@@ -723,9 +917,9 @@
             Designed and deployed robotic process automation workflows to reduce manual overhead across internal operations. Gained early experience working within enterprise engineering teams and shipping reliable automation in regulated environments.
           </div>
           <div class="exp-tags">
-            <span class="tag">RPA</span>
-            <span class="tag">Python</span>
-            <span class="tag">Automation</span>
+            <span class="tag-light">RPA</span>
+            <span class="tag-light">Python</span>
+            <span class="tag-light">Automation</span>
           </div>
         </div>
       </div>
