@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Outfit Planner</title>
+<meta name="description" content="Outfit Planner case study by Kimberly Bone, a software engineer moving into product, based in New York.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="case-study.css">
+</head>
+<body>
+<div class="page">
+
+<header class="wrap site-header">
+<a href="index.html" class="brand">Kimberly Bone</a>
+<nav aria-label="Primary" class="primary-nav">
+<a href="index.html#work-h" aria-current="true">Work</a>
+<a href="index.html#experience">Experience</a>
+<a href="mailto:bone.kimberlyd@gmail.com">Email</a>
+</nav>
+</header>
+
+<section class="wrap hero">
+<p class="eyebrow"><span>Outfit Planner</span><span>Product, design and code</span><span class="status-tag">Work in progress</span></p>
+<h1>I had a full closet and kept wearing the same five things.</h1>
+</section>
+
+<section aria-label="At a glance" class="wrap">
+<div class="glance">
+<div class="glance-main">
+<h2 class="label">Built so far</h2>
+<p class="glance-lead">A visual closet with filters for category, color, season and occasion, plus saved outfits, a calendar and a trip planner that builds the packing list for you.</p>
+<div class="glance-note">
+<h2 class="label">Stage</h2>
+<p>It is currently a private, working product with authentication and real data. I’m still its only user.</p>
+</div>
+</div>
+<div class="ownership">
+<h2 class="label">My ownership</h2>
+<ul>
+<li>Defined the problem from my own closet</li>
+<li>Designed the workflow and interface</li>
+<li>Built it with React, TypeScript and Supabase</li>
+<li>Defined the metrics I plan to track</li>
+</ul>
+</div>
+</div>
+</section>
+
+<figure class="wrap hero-shot">
+<img src="images/fits-closet-2x.jpg" width="1280" alt="The fits closet: a grid of clothing photos with filters for category, color and season and a sidebar for planning tomorrow">
+<figcaption>My actual closet. Everything is photographed and filterable, and the sidebar suggests tomorrow's outfit from things I haven't worn in a while.</figcaption>
+</figure>
+
+<section aria-labelledby="problem-h" class="wrap section">
+<div class="measure">
+<h2 id="problem-h">Where it started</h2>
+<p>The idea started with my own closet. I had plenty of clothes, a few outfits I loved and many pieces I kept skipping. Trips made the problem obvious: I would overpack and still wear the same three things.</p>
+<p>What helped was figuring out a few rules for my style: long lean lines, an earthy base with one pop of color and a little masculine and feminine tension. Once I had those, my closet made more sense. I want the app to help other people get there too.</p>
+</div>
+<div class="callout">
+<h3 class="label">My hypothesis</h3>
+<p>If people can see their closet as outfits and plan around real occasions, they will wear more of what they already own.</p>
+</div>
+</section>
+
+<section aria-labelledby="decisions-h" class="wrap section">
+<h2 id="decisions-h">Three decisions so far</h2>
+
+<article class="decision">
+<p class="label">Decision 1</p>
+<h3>Start with a trip.</h3>
+<dl class="facts">
+<div><dt>What I observed</dt><dd>A trip creates a deadline and a reason to finish adding clothes.</dd></div>
+<div><dt>What I chose</dt><dd>Assign an outfit to each day and the app builds a packing list by category, day or checklist, then estimates whether it will fit in a carry-on.</dd></div>
+<div class="tradeoff"><dt>Tradeoff</dt><dd>Everyday outfit planning comes second.</dd></div>
+<div><dt>What I'll measure</dt><dd>Trip-plan completion and repeat use for future trips.</dd></div>
+</dl>
+<div class="figures">
+<figure class="wide">
+<img src="images/fits-trip-2x.jpg" width="980" alt="A trip plan for an 18-day girls trip to Greece, with a packing list on the left and a day-by-day outfit plan on the right">
+<figcaption>My 18-day trip to Greece. The packing list on the left comes from the outfits on the right, with the carry-on check below it.</figcaption>
+</figure>
+</div>
+</article>
+
+<article class="decision">
+<p class="label">Decision 2</p>
+<h3>Plan around outfits, not individual pieces.</h3>
+<dl class="facts">
+<div><dt>What I observed</dt><dd>I had a few outfits I loved and many pieces I kept skipping.</dd></div>
+<div><dt>What I chose</dt><dd>Save complete looks, then schedule them on a calendar or add them to a trip. Over time, those choices reveal which pieces you actually use.</dd></div>
+<div class="tradeoff"><dt>Tradeoff</dt><dd>It takes more setup than uploading photos.</dd></div>
+<div><dt>What I'll measure</dt><dd>Whether saved outfits include a broader share of each person’s closet over time.</dd></div>
+</dl>
+<div class="figures">
+<figure class="wide">
+<img src="images/fits-outfits-2x.jpg" width="1280" alt="A grid of saved outfits, each showing its pieces side by side">
+<figcaption>Saved outfits. Ten looks from eleven pieces, with the same jeans and heels showing up in a bunch of them.</figcaption>
+</figure>
+</div>
+</article>
+
+<article class="decision">
+<p class="label">Decision 3</p>
+<h3>Bring overlooked pieces back into rotation.</h3>
+<dl class="facts">
+<div><dt>What I chose</dt><dd>The closet surfaces pieces you have not worn in 30 days and suggests ways to style them. “Plan tomorrow” builds an outfit from items that have been out of rotation for at least a week.</dd><dd>The wear diary tracks what you actually wore, points out repeats and checks how much of your capsule you used. Cost per wear is hidden by default, and the repeat detector is framed as a quiet nudge.</dd></div>
+<div class="tradeoff"><dt>Tradeoff</dt><dd>These nudges only work if people log what they wear.</dd></div>
+</dl>
+<div class="figures">
+<figure class="slim" style="flex-basis: 200px">
+<img src="images/fits-nudges-2x.jpg" width="200" alt="Closet sidebar with Plan tomorrow, Recently worn and Not worn in 30 days">
+<figcaption>Plan tomorrow, recently worn and not worn in 30 days.</figcaption>
+</figure>
+<figure>
+<img src="images/fits-stats-2x.jpg" width="980" alt="The wear diary: a grid of logged days, a repeat detector, pieces untouched for 30 days and a capsule audit">
+<figcaption>The wear diary. Each square is a day you can log, and the side panels use that history to suggest pieces to bring back, repeats to swap and a capsule check at the end of the season.</figcaption>
+</figure>
+</div>
+</article>
+</section>
+
+<section aria-labelledby="standing-h" class="wrap">
+<h2 id="standing-h" class="label" style="margin-bottom: 16px">Where it stands</h2>
+<div class="standing">
+<div><h3 class="label label-status">Status</h3><p>A private, working product with authentication and real data. I’m still its only user.</p></div>
+<div><h3 class="label">What I'm measuring</h3><p>Trip-plan completion, repeat use for future trips and whether saved outfits include a broader share of each person’s closet over time.</p></div>
+<div><h3 class="label">What's next</h3><p>Turning personal style rules into a product feature. People will be able to define their own, get outfit suggestions that follow them and spot purchases that do not work with anything they already own.</p></div>
+</div>
+</section>
+
+<footer class="wrap site-footer">
+<div class="rule">
+<p class="footer-cta">Have ideas for Outfit Planner? <a href="mailto:bone.kimberlyd@gmail.com?subject=Outfit%20Planner%20feedback">Email me.</a></p>
+<p class="footer-links"><a href="sister.html">Next: Sister</a><a href="index.html">Back to home</a></p>
+</div>
+</footer>
+
+</div>
+</body>
+</html>

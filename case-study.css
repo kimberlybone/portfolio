@@ -1,0 +1,104 @@
+/* Shared styles for the case study pages */
+:root{
+  --bg:#2A201B; --ink:#EFE8DE; --body:#E4DBCF; --muted:#C4B8A8; --quiet:#9C8E80;
+  --gold:#D9A441; --gold-hi:#F0C56E; --line:#7D6C5F; --line-soft:#4A3D34; --tint:#382B23;
+  --serif:'Times New Roman', Times, serif; --sans:'Karla', sans-serif;
+}
+body{margin:0;background:var(--bg)}
+a{color:var(--ink);text-decoration-color:var(--gold);text-underline-offset:4px;text-decoration-thickness:2px}
+a:hover{color:var(--gold-hi)}
+a:focus-visible{outline:2px solid var(--gold-hi);outline-offset:3px}
+img{max-width:100%;height:auto;display:block}
+
+.page{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:18px;line-height:1.65}
+.wrap{max-width:1240px;margin:0 auto;padding:0 24px}
+
+/* Header */
+.site-header{display:flex;flex-wrap:wrap;gap:4px 24px;justify-content:space-between;padding-top:24px;font-size:14px}
+.brand{text-decoration:none;font-weight:600;padding:10px 0}
+.primary-nav{display:flex;flex-wrap:wrap;gap:4px 24px}
+.primary-nav a{padding:10px 0}
+.primary-nav a[aria-current]{color:var(--gold-hi);font-weight:600;text-decoration-thickness:3px}
+
+/* Hero */
+.hero{padding-top:clamp(56px,8vw,104px);padding-bottom:40px}
+.eyebrow{margin:0;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px}
+.status-tag{padding:3px 9px;border:1px solid var(--gold);color:var(--gold-hi)}
+.hero h1{margin:16px 0 0;font-family:var(--serif);font-weight:400;font-size:clamp(34px,6vw,56px);line-height:1.1;letter-spacing:-.01em;max-width:900px}
+.hero-links{margin:24px 0 0;display:flex;flex-wrap:wrap;gap:4px 24px;font-size:15px;font-weight:600}
+.hero-links a{padding:10px 0}
+
+/* Labels */
+.label{margin:0;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+/* Gold is reserved for status, ownership and decision labels */
+.ownership .label,.decision > .label,.standing .label-status{color:var(--gold)}
+
+/* At a glance */
+.glance{display:flex;flex-wrap:wrap;gap:32px 56px;border-top:1px solid var(--ink);padding-top:28px;margin-bottom:64px}
+.glance-main{flex:3 1 440px;min-width:0;max-width:660px}
+.glance-lead{margin:10px 0 0;font-family:var(--serif);font-size:24px;line-height:1.4}
+.glance-note{margin:28px 0 0}
+.glance-note p{margin:6px 0 0;color:var(--body)}
+.ownership{flex:2 1 280px;min-width:0;max-width:420px;align-self:flex-start;padding:22px 24px;border:1px solid var(--line)}
+.ownership ul{margin:14px 0 0;padding:0;list-style:none}
+.ownership li{position:relative;padding:9px 0 9px 20px;border-top:1px solid var(--line-soft);font-size:17px;line-height:1.45}
+.ownership li:first-child{border-top:0}
+.ownership li::before{content:"";position:absolute;left:0;top:17px;width:8px;height:8px;background:var(--gold)}
+.ownership-note{margin:14px 0 0;font-size:15px;color:var(--muted)}
+
+/* Figures */
+figure{margin:0}
+figure img{border:1px solid var(--line);border-radius:12px}
+figcaption{margin-top:10px;font-size:14px;line-height:1.5;color:var(--muted);max-width:720px}
+.hero-shot{margin-bottom:104px}
+.figures{display:flex;flex-wrap:wrap;gap:28px 40px;align-items:flex-start;margin-top:36px}
+.figures figure{flex:1 1 320px;min-width:0}
+.figures .narrow{flex:0 1 480px}
+.figures .slim{flex:0 1 260px}
+.figures .wide{flex:1 1 100%}
+
+/* Sections */
+.section{padding-bottom:104px}
+.section h2{margin:0 0 20px;font-family:var(--serif);font-weight:400;font-size:clamp(30px,4vw,38px);line-height:1.15}
+.measure{max-width:640px}
+.measure p{margin:0 0 16px;color:var(--body)}
+.callout{margin:28px 0 0;padding:20px 24px;max-width:640px;box-sizing:border-box;background:var(--tint);border-left:3px solid var(--gold)}
+.callout p{margin:8px 0 0;font-family:var(--serif);font-size:23px;line-height:1.4;color:var(--ink)}
+
+/* Decision cards */
+.decision{padding:56px 0;border-top:1px solid var(--line)}
+.decision h3{margin:8px 0 0;font-family:var(--serif);font-weight:400;font-size:clamp(26px,3vw,32px);line-height:1.2;max-width:760px}
+.facts{display:grid;grid-template-columns:1fr;gap:20px 40px;margin:28px 0 0;max-width:1000px}
+@media (min-width:760px){.facts{grid-template-columns:repeat(2,1fr)}}
+.facts > div{padding-top:14px;border-top:1px solid var(--line-soft)}
+.facts dt{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.facts dd{margin:6px 0 0;color:var(--body)}
+.facts dd + dd{margin-top:12px}
+.facts .tradeoff{padding:14px 18px 16px;border-top:0;border-left:3px solid var(--gold);background:var(--tint)}
+
+/* Workstreams (Sister) */
+.workstream{display:flex;flex-wrap:wrap;gap:20px 56px;padding:48px 0;border-top:1px solid var(--line)}
+.workstream-head{flex:0 0 280px;min-width:0}
+.workstream h3{margin:0;font-family:var(--serif);font-weight:400;font-size:28px;line-height:1.2}
+.workstream .status-tag{display:inline-block;margin-top:12px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.workstream ul{flex:999 1 440px;min-width:0;max-width:640px;margin:0;padding-left:20px;color:var(--body)}
+.workstream li{margin-bottom:12px}
+.workstream li:last-child{margin-bottom:0}
+
+/* Where it stands */
+.standing{display:grid;grid-template-columns:1fr;border:1px solid var(--line);background:var(--tint)}
+.standing > div{padding:22px 24px;border-top:1px solid var(--line-soft)}
+.standing > div:first-child{border-top:0}
+@media (min-width:860px){
+  .standing{grid-template-columns:repeat(3,1fr)}
+  .standing > div{border-top:0;border-left:1px solid var(--line-soft)}
+  .standing > div:first-child{border-left:0}
+}
+.standing p{margin:8px 0 0;font-size:17px;color:var(--body)}
+
+/* Footer */
+.site-footer{padding-top:72px;padding-bottom:56px}
+.site-footer .rule{border-top:1px solid var(--line);padding-top:40px}
+.footer-cta{margin:0;font-family:var(--serif);font-size:32px;line-height:1.25;max-width:760px}
+.footer-links{margin:32px 0 0;display:flex;flex-wrap:wrap;gap:4px 24px;font-size:14px}
+.footer-links a{padding:10px 0}

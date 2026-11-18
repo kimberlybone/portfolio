@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hustle Board</title>
+<meta name="description" content="Hustle Board case study by Kimberly Bone, a software engineer moving into product, based in New York.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="case-study.css">
+</head>
+<body>
+<div class="page">
+
+<header class="wrap site-header">
+<a href="index.html" class="brand">Kimberly Bone</a>
+<nav aria-label="Primary" class="primary-nav">
+<a href="index.html#work-h" aria-current="true">Work</a>
+<a href="index.html#experience">Experience</a>
+<a href="mailto:bone.kimberlyd@gmail.com">Email</a>
+</nav>
+</header>
+
+<section class="wrap hero">
+<p class="eyebrow"><span>Hustle Board</span><span>Product, design and code</span><span class="status-tag">Live</span></p>
+<h1>I got tired of running my job search across twelve tabs, so I built one place for it.</h1>
+<p class="hero-links"><a href="https://hustleboard.vercel.app">Try Hustle Board</a><a href="https://github.com/kimberlybone/job-tracker">View the code</a></p>
+</section>
+
+<section aria-label="At a glance" class="wrap">
+<div class="glance">
+<div class="glance-main">
+<h2 class="label">What I built</h2>
+<p class="glance-lead">A job feed sourced from company career pages, explainable match scores, a pipeline with daily priorities and AI resume tailoring that checks every draft against your actual experience.</p>
+<div class="glance-note">
+<h2 class="label">Learned from real use</h2>
+<p>I use Hustle Board for my own search. Reviewing its drafts like a recruiter, I kept catching the AI stretching the truth. That became the reason for the evidence check.</p>
+</div>
+</div>
+<div class="ownership">
+<h2 class="label">My ownership</h2>
+<ul>
+<li>Defined the problem from my own search</li>
+<li>Designed the workflow and interface</li>
+<li>Built and shipped the full product</li>
+<li>Defined the metrics I plan to track</li>
+</ul>
+</div>
+</div>
+</section>
+
+<figure class="wrap hero-shot">
+<img src="images/hb-discover-2x.jpg" width="1280" alt="Discover feed showing new job matches with match scores and a Tailor resume button on each card">
+<figcaption>Discover shows new roles since yesterday, scored against your preferences. You can save a role or tailor a resume right from the card. Shown with a demo account.</figcaption>
+</figure>
+
+<section aria-labelledby="problem-h" class="wrap section">
+<div class="measure">
+<h2 id="problem-h">The problem</h2>
+<p>Job searching can feel like a part-time job, and its tools rarely connect. I had roles open across a dozen tabs, a tracking spreadsheet and a folder full of resume versions. The admin took time away from deciding where to apply and making a strong case.</p>
+</div>
+<div class="callout">
+<h3 class="label">My hypothesis</h3>
+<p>Putting discovery, tracking and tailoring in one place would help me send fewer, stronger applications.</p>
+</div>
+</section>
+
+<section aria-labelledby="decisions-h" class="wrap section">
+<h2 id="decisions-h">Three decisions</h2>
+
+<article class="decision">
+<p class="label">Decision 1</p>
+<h3>I built the daily workflow before the AI.</h3>
+<dl class="facts">
+<div><dt>What I observed</dt><dd>The immediate problem was knowing what I had applied to, who needed a follow-up and which roles were going stale.</dd></div>
+<div><dt>What I chose</dt><dd>Build the pipeline and daily priorities first. That workflow is useful from day one and gives people a reason to return each morning.</dd></div>
+<div class="tradeoff"><dt>Tradeoff</dt><dd>The AI features came later.</dd></div>
+<div><dt>What I'll measure</dt><dd>Return usage: whether people keep coming back to the pipeline.</dd></div>
+</dl>
+<div class="figures">
+<figure class="wide">
+<img src="images/hb-pipeline-2x.jpg" width="1280" alt="Pipeline with today's focus, people to reach out to and roles by stage">
+<figcaption>Today's focus sits above the board so you see your next step first. It also reminds you to message two people for every role you apply to.</figcaption>
+</figure>
+</div>
+</article>
+
+<article class="decision">
+<p class="label">Decision 2</p>
+<h3>You can see why a role matches.</h3>
+<dl class="facts">
+<div><dt>What I observed</dt><dd>A match score is hard to trust without an explanation.</dd></div>
+<div><dt>What I chose</dt><dd>Show each check behind the score. It helps people decide whether a role is worth their time and which preference they might loosen when results are limited.</dd><dd>Roles come straight from each company's own job board, so they're current.</dd></div>
+<div class="tradeoff"><dt>Tradeoff</dt><dd>I add companies one at a time, so coverage is still growing.</dd></div>
+</dl>
+<div class="figures">
+<figure class="wide">
+<img src="images/hb-fit-2x.jpg" width="750" alt="A role's Fit section listing each check behind its match score">
+<figcaption>Click a score to see what went into it: title, level, experience, location, pay and workplace.</figcaption>
+</figure>
+</div>
+</article>
+
+<article class="decision">
+<p class="label">Decision 3</p>
+<h3>Make the AI show its work.</h3>
+<dl class="facts">
+<div><dt>What I observed</dt><dd>Comparing tailored resumes with the original job postings exposed a trust problem. The AI added unsupported skills, inflated titles and chose flashy bullets over relevant ones. A recruiter would notice immediately.</dd></div>
+<div><dt>What I chose</dt><dd>Every draft now comes with an evidence check. Each requirement in the posting gets marked as backed, partial or missing, with a short reason. A final pass checks dates, titles and length, and every edit is highlighted.</dd></div>
+<div class="tradeoff"><dt>Tradeoff</dt><dd>The drafts are more modest.</dd></div>
+<div><dt>What I'll measure</dt><dd>Resume edit rate. If people make fewer corrections before applying, the drafts are becoming more useful.</dd></div>
+</dl>
+<div class="figures">
+<figure class="slim" style="flex-basis: 280px">
+<img src="images/hb-evidence-2x.jpg" width="280" alt="Tailored draft with keyword coverage and an evidence check marking each job requirement">
+<figcaption>The evidence check on a sample resume. You decide what to do with the gaps, like covering them in a cover letter or skipping the role.</figcaption>
+</figure>
+<figure>
+<img src="images/hb-tailored-2x.jpg" width="900" alt="The tailored resume with every changed line highlighted">
+<figcaption>Every line the AI changed is highlighted so you can review it before sending.</figcaption>
+</figure>
+</div>
+</article>
+</section>
+
+<section aria-labelledby="standing-h" class="wrap">
+<h2 id="standing-h" class="label" style="margin-bottom: 16px">Where it stands</h2>
+<div class="standing">
+<div><h3 class="label label-status">Status</h3><p>Live and open to anyone. I use it for my own job search.</p></div>
+<div><h3 class="label">What I'm measuring</h3><p>Return usage, resume edit rate and feed performance. Edit rate matters most.</p></div>
+<div><h3 class="label">What's next</h3><p>Connecting match scores to the evidence check. A role can currently score well on title and level even when the resume supports few of its requirements. The combined model should produce a more honest fit assessment.</p></div>
+</div>
+</section>
+
+<footer class="wrap site-footer">
+<div class="rule">
+<p class="footer-cta"><a href="https://hustleboard.vercel.app">Try Hustle Board</a> on your own search. Have feedback? <a href="mailto:bone.kimberlyd@gmail.com?subject=Hustle%20Board%20feedback">Email me.</a></p>
+<p class="footer-links"><a href="outfit-planner.html">Next: Outfit Planner</a><a href="index.html">Back to home</a></p>
+</div>
+</footer>
+
+</div>
+</body>
+</html>

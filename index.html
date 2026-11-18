@@ -1,1008 +1,159 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kimberly Bone — Software Engineer</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --black: #0f0f0f;
-      --white: #f9f9f7;
-      --pure-white: #ffffff;
-      --ink: #1c1c1c;
-      --muted: #888580;
-      --accent: #0f0f0f;
-      --accent-2: #0f0f0f;
-      --rule: #e2dfd8;
-      --serif: 'DM Serif Display', Georgia, serif;
-      --sans: 'DM Sans', system-ui, sans-serif;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--white);
-      color: var(--ink);
-      font-family: var(--sans);
-      font-weight: 300;
-      font-size: 16px;
-      line-height: 1.7;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.25rem 3rem;
-      background: var(--pure-white);
-      border-bottom: 1px solid var(--rule);
-      opacity: 0;
-      animation: fadeDown 0.6s 0.1s forwards;
-    }
-
-    .nav-logo {
-      font-family: var(--serif);
-      font-size: 1.1rem;
-      color: var(--ink);
-      text-decoration: none;
-      letter-spacing: 0.01em;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2.5rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-size: 0.8rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover { color: var(--ink); }
-
-    /* ── HERO ── */
-    #home {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      padding-top: 70px;
-    }
-
-    .hero-left {
-      padding: 6rem 3rem 6rem 3rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      border-right: 1px solid var(--rule);
-      opacity: 0;
-      animation: fadeUp 0.8s 0.3s forwards;
-    }
-
-    .hero-label {
-      font-size: 0.75rem;
-      font-weight: 500;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 1.5rem;
-    }
-
-    .hero-name {
-      font-family: var(--serif);
-      font-size: clamp(4.5rem, 8vw, 7.5rem);
-      line-height: 0.95;
-      color: var(--ink);
-      margin-bottom: 2.5rem;
-      letter-spacing: -0.01em;
-    }
-
-    .hero-name em {
-      font-style: italic;
-      color: var(--accent);
-      display: block;
-    }
-
-    .hero-bottom {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 2rem;
-    }
-
-    .hero-desc {
-      font-size: 1rem;
-      color: var(--muted);
-      max-width: 320px;
-      line-height: 1.8;
-    }
-
-    .hero-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-size: 0.8rem;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--ink);
-      text-decoration: none;
-      border-bottom: 1.5px solid var(--accent);
-      padding-bottom: 2px;
-      white-space: nowrap;
-      transition: color 0.2s, gap 0.2s;
-    }
-
-    .hero-cta:hover { color: var(--accent); gap: 1rem; }
-
-    /* Hero image */
-    .hero-right {
-      position: relative;
-      overflow: hidden;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.5s forwards;
-    }
-
-    .hero-image {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center 20%;
-      filter: saturate(0.85);
-      transition: transform 8s ease, filter 0.4s ease;
-    }
-
-    .hero-right:hover .hero-image {
-      transform: scale(1.03);
-      filter: saturate(1);
-    }
-
-    .hero-image-caption {
-      position: absolute;
-      bottom: 2rem;
-      right: 2rem;
-      font-size: 0.68rem;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.7);
-      writing-mode: vertical-rl;
-      text-orientation: mixed;
-    }
-
-    /* ── MARQUEE ── */
-    .marquee-strip {
-      border-top: 1px solid var(--rule);
-      border-bottom: 1px solid var(--rule);
-      background: var(--ink);
-      padding: 0.85rem 0;
-      overflow: hidden;
-      display: flex;
-    }
-
-    .marquee-track {
-      display: flex;
-      gap: 0;
-      animation: marquee 28s linear infinite;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
-    .marquee-strip:hover .marquee-track { animation-play-state: paused; }
-
-    .marquee-item {
-      display: inline-flex;
-      align-items: center;
-      gap: 1.5rem;
-      padding: 0 2rem;
-      font-size: 0.72rem;
-      font-weight: 500;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--white);
-    }
-
-    .marquee-dot {
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: var(--accent);
-      flex-shrink: 0;
-    }
-
-    @keyframes marquee {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
-
-    /* ── SECTION SHARED ── */
-    section {
-      padding: 6rem 3rem;
-      border-top: 1px solid var(--rule);
-    }
-
-    .section-header {
-      display: flex;
-      align-items: baseline;
-      gap: 1.5rem;
-      margin-bottom: 4rem;
-    }
-
-    .section-num {
-      font-size: 0.72rem;
-      font-weight: 500;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--accent);
-    }
-
-    .section-title {
-      font-family: var(--serif);
-      font-size: clamp(2rem, 4vw, 3rem);
-      color: var(--ink);
-      line-height: 1.1;
-    }
-
-    /* ── ABOUT ── */
-    #about { background: var(--pure-white); }
-    #about .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: start;
-    }
-
-    .about-body p {
-      font-size: 1.05rem;
-      color: #3a3835;
-      margin-bottom: 1.4rem;
-      line-height: 1.85;
-    }
-
-    .about-body p:last-child { margin-bottom: 0; }
-
-    .about-aside {
-      display: flex;
-      flex-direction: column;
-      gap: 2.5rem;
-    }
-
-    .aside-block {
-      border-left: 2px solid var(--accent);
-      padding-left: 1.2rem;
-    }
-
-    .aside-block-label {
-      font-size: 0.72rem;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.6rem;
-    }
-
-    .aside-block-text {
-      font-size: 0.95rem;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    /* ── PROJECTS ── */
-    #projects .projects-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-    }
-
-    .project-card {
-      position: relative;
-      overflow: hidden;
-      border-radius: 3px;
-      aspect-ratio: 4/3;
-      cursor: pointer;
-    }
-
-    /* each card has a distinct background color/image */
-    .project-card-bg {
-      position: absolute;
-      inset: 0;
-      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-
-    .project-card:hover .project-card-bg {
-      transform: scale(1.05);
-    }
-
-    .project-card-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to top,
-        rgba(15,15,15,0.92) 0%,
-        rgba(15,15,15,0.5) 50%,
-        rgba(15,15,15,0.1) 100%
-      );
-      transition: background 0.4s;
-    }
-
-    .project-card:hover .project-card-overlay {
-      background: linear-gradient(
-        to top,
-        rgba(15,15,15,0.96) 0%,
-        rgba(15,15,15,0.6) 55%,
-        rgba(15,15,15,0.15) 100%
-      );
-    }
-
-    .project-card-content {
-      position: absolute;
-      inset: 0;
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-    }
-
-    .project-tag {
-      font-size: 0.65rem;
-      font-weight: 500;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.6rem;
-    }
-
-    .project-name {
-      font-family: var(--serif);
-      font-size: 1.6rem;
-      color: #f8f6f1;
-      margin-bottom: 0.6rem;
-      line-height: 1.15;
-    }
-
-    .project-desc {
-      font-size: 0.85rem;
-      color: rgba(248,246,241,0.65);
-      line-height: 1.7;
-      margin-bottom: 1.2rem;
-      max-height: 0;
-      overflow: hidden;
-      opacity: 0;
-      transition: max-height 0.4s ease, opacity 0.35s ease, margin 0.4s ease;
-    }
-
-    .project-card:hover .project-desc {
-      max-height: 8rem;
-      opacity: 1;
-    }
-
-    .project-stack {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      margin-bottom: 1rem;
-      opacity: 0;
-      transform: translateY(6px);
-      transition: opacity 0.35s 0.05s ease, transform 0.35s 0.05s ease;
-    }
-
-    .project-card:hover .project-stack { opacity: 1; transform: translateY(0); }
-
-    .tag {
-      font-size: 0.68rem;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: rgba(248,246,241,0.6);
-      border: 1px solid rgba(248,246,241,0.2);
-      padding: 0.25rem 0.6rem;
-      border-radius: 2px;
-    }
-
-    /* non-card tags (about, exp sections) */
-    .tag-light {
-      font-size: 0.68rem;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--muted);
-      border: 1px solid var(--rule);
-      padding: 0.25rem 0.6rem;
-      border-radius: 2px;
-    }
-
-    .project-links {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      align-items: center;
-      opacity: 0;
-      transform: translateY(6px);
-      transition: opacity 0.35s 0.1s ease, transform 0.35s 0.1s ease;
-    }
-
-    .project-card:hover .project-links { opacity: 1; transform: translateY(0); }
-
-    .project-link {
-      font-size: 0.72rem;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #f8f6f1;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      border-bottom: 1px solid rgba(248,246,241,0.35);
-      padding-bottom: 2px;
-      transition: border-color 0.2s, color 0.2s;
-    }
-
-    .project-link:hover { color: var(--accent); border-color: var(--accent); }
-
-    .project-link-disabled {
-      font-size: 0.72rem;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: rgba(248,246,241,0.35);
-    }
-
-    .project-wip {
-      display: inline-block;
-      font-size: 0.6rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      background: var(--accent);
-      color: white;
-      padding: 0.2rem 0.5rem;
-      border-radius: 2px;
-      margin-left: 0.5rem;
-      vertical-align: middle;
-    }
-
-    /* card-specific backgrounds */
-    .card-1 { background: #141414; }
-    .card-2 { background: #0f0f0f; }
-    .card-3 { background: #1a1a1a; }
-    .card-4 { background: #111111; }
-
-    .card-1 .project-card-bg {
-      background: radial-gradient(ellipse at 70% 30%, #ffffff0f 0%, transparent 65%),
-                  radial-gradient(ellipse at 20% 80%, #ffffff08 0%, transparent 55%);
-    }
-    .card-2 .project-card-bg {
-      background: radial-gradient(ellipse at 30% 40%, #ffffff0a 0%, transparent 65%),
-                  radial-gradient(ellipse at 80% 70%, #ffffff06 0%, transparent 55%);
-    }
-    .card-3 .project-card-bg {
-      background: radial-gradient(ellipse at 60% 30%, #ffffff0d 0%, transparent 65%),
-                  radial-gradient(ellipse at 30% 75%, #ffffff08 0%, transparent 55%);
-    }
-    .card-4 .project-card-bg {
-      background: radial-gradient(ellipse at 50% 50%, #ffffff06 0%, transparent 70%);
-    }
-
-    /* card-4 "more on the way" */
-    .card-more {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid var(--rule);
-      border-radius: 3px;
-      aspect-ratio: 4/3;
-      background: var(--pure-white);
-      transition: background 0.2s;
-    }
-    .card-more:hover { background: #f5f5f5; }
-    .card-more-inner { text-align: center; color: var(--muted); }
-    .card-more-inner .card-more-title {
-      font-family: var(--serif);
-      font-size: 1.2rem;
-      margin-bottom: 0.4rem;
-      color: var(--ink);
-    }
-    .card-more-inner p { font-size: 0.85rem; }
-
-    /* ── EXPERIENCE ── */
-    #experience { background: var(--pure-white); }
-    #experience .exp-list {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .exp-item {
-      display: grid;
-      grid-template-columns: 200px 1fr;
-      gap: 3rem;
-      padding: 2.5rem 0;
-      border-top: 1px solid var(--rule);
-    }
-
-
-    .exp-meta { padding-top: 0.15rem; }
-
-    .exp-date {
-      font-size: 0.78rem;
-      color: var(--muted);
-      letter-spacing: 0.05em;
-      margin-bottom: 0.4rem;
-    }
-
-    .exp-company {
-      font-size: 0.78rem;
-      font-weight: 500;
-      color: var(--accent);
-      letter-spacing: 0.05em;
-    }
-
-    .exp-role {
-      font-family: var(--serif);
-      font-size: 1.3rem;
-      color: var(--ink);
-      margin-bottom: 0.8rem;
-      line-height: 1.2;
-    }
-
-    .exp-body {
-      font-size: 0.92rem;
-      color: #555250;
-      line-height: 1.8;
-    }
-
-    .exp-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      margin-top: 1rem;
-    }
-
-    /* ── CONTACT ── */
-    #contact {
-      background: var(--ink);
-      color: var(--white);
-      padding: 6rem 3rem;
-      border-top: none;
-    }
-
-    #contact .section-title { color: var(--white); }
-    #contact .section-num { color: var(--accent); }
-
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: start;
-    }
-
-    .contact-intro {
-      font-size: 1.05rem;
-      color: #a8a5a0;
-      line-height: 1.8;
-      max-width: 400px;
-    }
-
-    .contact-links {
-      display: flex;
-      flex-direction: column;
-      gap: 1.2rem;
-    }
-
-    .contact-link {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.2rem 0;
-      border-top: 1px solid #2e2e2e;
-      text-decoration: none;
-      color: var(--white);
-      transition: color 0.2s;
-    }
-
-    .contact-link:hover { color: var(--accent); }
-
-    .contact-link-label {
-      font-size: 0.72rem;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #555250;
-    }
-
-    .contact-link-value {
-      font-family: var(--serif);
-      font-size: 1.1rem;
-    }
-
-    .contact-arrow { font-size: 1.2rem; }
-
-    footer {
-      background: var(--ink);
-      border-top: 1px solid #2a2a2a;
-      padding: 1.5rem 3rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    footer p {
-      font-size: 0.75rem;
-      color: #555250;
-      letter-spacing: 0.05em;
-    }
-
-    /* ── ANIMATIONS ── */
-    @keyframes fadeDown {
-      from { opacity: 0; transform: translateY(-12px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 768px) {
-      nav { padding: 1rem 1.5rem; }
-      .nav-links { gap: 1.5rem; }
-
-      #home { grid-template-columns: 1fr; }
-      .hero-left { padding: 5rem 1.5rem 2rem; border-right: none; min-height: 60vh; }
-      .hero-right { min-height: 50vw; }
-      .hero-bottom { flex-direction: column; align-items: flex-start; gap: 1.2rem; }
-
-      section { padding: 4rem 1.5rem; }
-
-      #about .about-grid,
-      .projects-grid,
-      .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-
-      .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
-      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kimberly Bone</title>
+<meta name="description" content="Kimberly Bone, a software engineer moving into product, based in New York.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#2A201B}
+a{color:#EFE8DE;text-decoration-color:#D9A441;text-underline-offset:4px;text-decoration-thickness:2px}
+a:focus-visible{outline:2px solid #F0C56E;outline-offset:3px}
+a:hover{color:#F0C56E}
+.cta-primary{display:inline-block;padding:12px 22px;background:#D9A441;color:#2A201B;text-decoration:none}
+.cta-primary:hover{background:#F0C56E;color:#2A201B}
+.cta-primary:focus-visible{outline:2px solid #EFE8DE;outline-offset:3px}
+.card-meta{margin:0;font-family:'Karla',sans-serif;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#EFE8DE;display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px}
+.card-status{padding:3px 9px;border:1px solid #D9A441;color:#F0C56E}
+.card-milestone{font-weight:500;letter-spacing:.02em;text-transform:none;font-size:14px;color:#C4B8A8}
+.exp-theme{padding:18px 0 0;margin:18px 0 0;border-top:1px solid #4A3D34}
+.exp-theme:first-child{padding-top:0;margin-top:0;border-top:0}
+.exp-theme-h{margin:0;font-family:'Karla',sans-serif;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#EFE8DE}
+.exp-theme p{font-family:'Karla',sans-serif;font-size:17px;line-height:1.65;color:#E4DBCF}
+.exp-stack-label{margin-right:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.exp-stack{margin:24px 0 0;font-family:'Karla',sans-serif;font-size:13px;color:#9C8E80}
+.card-owner{margin:10px 0 0;font-family:'Karla',sans-serif;font-size:16px;font-weight:500;color:#D9A441}
+</style>
+<style>img{max-width:100%}article img{border-radius:12px}</style>
 </head>
 <body>
+<div style="background: #2A201B; color: #EFE8DE; font-family: 'Times New Roman', Times, serif; font-size: 21px; line-height: 1.45">
 
-  <!-- NAV -->
-  <nav>
-    <a href="#home" class="nav-logo">KB</a>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
+<header style="max-width: 1240px; margin: 0 auto; padding: 24px 24px 0; display: flex; flex-wrap: wrap; gap: 4px 24px; justify-content: space-between; font-family: 'Karla', sans-serif; font-size: 14px">
+<a href="#top" style="text-decoration: none; font-weight: 600; padding: 10px 0">Kimberly Bone</a>
+<nav aria-label="Primary" style="display: flex; flex-wrap: wrap; gap: 4px 24px">
+<a href="#work-h" style="padding: 10px 0">Work</a>
+<a href="#experience" style="padding: 10px 0">Experience</a>
+<a href="mailto:bone.kimberlyd@gmail.com" style="padding: 10px 0">Email</a>
+</nav>
+</header>
 
-  <!-- HERO -->
-  <section id="home">
-    <div class="hero-left">
-      <p class="hero-label">Software Engineer — NYC</p>
-      <h1 class="hero-name">Kimberly<br><em>Bone.</em></h1>
-      <div class="hero-bottom">
-        <p class="hero-desc">
-          Full-stack engineer with a frontend lean, focused on building consumer-facing products that people actually enjoy using. Currently at Amazon / One Medical.
-        </p>
-        <a href="#projects" class="hero-cta">View my work &rarr;</a>
-      </div>
-    </div>
-    <div class="hero-right">
-      <img
-        class="hero-image"
-        src="IMG_3528.jpeg"
-        alt="Kimberly Bone — New York City"
-      />
-      <span class="hero-image-caption">New York City</span>
-    </div>
-  </section>
+<section id="top" style="max-width: 1240px; margin: 0 auto; padding: clamp(56px, 9vw, 120px) 24px clamp(48px, 6vw, 80px)">
+<h1 style="margin: 0; font-weight: 400; font-size: clamp(34px, 6vw, 54px); line-height: 1.1; letter-spacing: -0.01em; max-width: 820px">Hi, I’m Kimberly. I’m a software engineer moving into product.</h1>
+<p style="margin: 20px 0 0; font-style: italic; font-size: 20px; line-height: 1.45; max-width: 640px; color: #C4B8A8">I build useful apps, bring women together and spend most mornings in a cafe.</p>
+<p style="margin: 36px 0 0; font-size: 22px; line-height: 1.45; max-width: 760px; color: #D3C8B9">I spent four years as a software engineer at Amazon One Medical, building billing products that helped patients understand their balances and operations teams manage the work behind them.</p>
+<p style="margin: 32px 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; font-family: 'Karla', sans-serif; font-size: 15px; font-weight: 600"><a href="#work-h" class="cta-primary">View my work</a><a href="#experience" style="padding: 12px 0">See my experience</a></p>
+</section>
 
-  <!-- MARQUEE -->
-  <div class="marquee-strip" aria-hidden="true">
-    <div class="marquee-track">
-      <span class="marquee-item">React <span class="marquee-dot"></span></span>
-      <span class="marquee-item">TypeScript <span class="marquee-dot"></span></span>
-      <span class="marquee-item">GraphQL <span class="marquee-dot"></span></span>
-      <span class="marquee-item">Node.js <span class="marquee-dot"></span></span>
-      <span class="marquee-item">Next.js <span class="marquee-dot"></span></span>
-      <span class="marquee-item">Ruby on Rails <span class="marquee-dot"></span></span>
-      <span class="marquee-item">PostgreSQL <span class="marquee-dot"></span></span>
-      <span class="marquee-item">Supabase <span class="marquee-dot"></span></span>
-      <span class="marquee-item">AWS <span class="marquee-dot"></span></span>
-      <span class="marquee-item">Playwright <span class="marquee-dot"></span></span>
-      <span class="marquee-item">Python <span class="marquee-dot"></span></span>
-      <span class="marquee-item">Storybook <span class="marquee-dot"></span></span>
-      <span class="marquee-item">React <span class="marquee-dot"></span></span>
-      <span class="marquee-item">TypeScript <span class="marquee-dot"></span></span>
-      <span class="marquee-item">GraphQL <span class="marquee-dot"></span></span>
-      <span class="marquee-item">Node.js <span class="marquee-dot"></span></span>
-      <span class="marquee-item">Next.js <span class="marquee-dot"></span></span>
-      <span class="marquee-item">Ruby on Rails <span class="marquee-dot"></span></span>
-      <span class="marquee-item">PostgreSQL <span class="marquee-dot"></span></span>
-      <span class="marquee-item">Supabase <span class="marquee-dot"></span></span>
-      <span class="marquee-item">AWS <span class="marquee-dot"></span></span>
-      <span class="marquee-item">Playwright <span class="marquee-dot"></span></span>
-      <span class="marquee-item">Python <span class="marquee-dot"></span></span>
-      <span class="marquee-item">Storybook <span class="marquee-dot"></span></span>
-    </div>
-  </div>
+<section aria-labelledby="work-h" style="max-width: 1240px; margin: 0 auto; padding: 0 24px 40px">
+<h2 id="work-h" style="margin: 0 0 32px; font-weight: 400; font-size: 34px">What I'm working on</h2>
 
-  <!-- ABOUT -->
-  <section id="about">
-    <div class="section-header reveal">
-      <span class="section-num">01</span>
-      <h2 class="section-title">About me</h2>
-    </div>
-    <div class="about-grid">
-      <div class="about-body reveal">
-        <p>
-          I'm a full-stack software engineer with a frontend lean and strong product instincts. I'm happiest on product teams where the work is visible, the feedback loop is fast, and the details of the user experience actually matter.
-        </p>
-        <p>
-          At One Medical, now part of Amazon, I've worked across the stack on both product and platform initiatives. My background spans React, TypeScript, backend/API work, GraphQL, design systems, and end-to-end testing, and I like owning product-facing work from implementation through polish.
-        </p>
-        <p>
-          I've grown into broader ownership over time, and I do my best work when I can combine engineering judgment, user empathy, and clear execution to build things people genuinely want to use.
-        </p>
-      </div>
-      <div class="about-aside reveal">
-        <div class="aside-block">
-          <div class="aside-block-label">What I'm looking for</div>
-          <div class="aside-block-text">Software engineering, product engineering, product management, or developer relations engineering roles, especially on product-driven teams in NYC.</div>
-        </div>
-        <div class="aside-block">
-          <div class="aside-block-label">Education</div>
-          <div class="aside-block-text">Flatiron School, Full-Stack Web Development<br>UNC Greensboro, B.A. Spanish + B.S. Nutrition Science</div>
-        </div>
-        <div class="aside-block">
-          <div class="aside-block-label">Community</div>
-          <div class="aside-block-text">DevColor</div>
-          <div class="aside-block-text">Women Who Code</div>
-          <div class="aside-block-text">NSBE NYC</div>
-        </div>
-      </div>
-    </div>
-  </section>
+<article style="display: flex; flex-wrap: wrap; gap: 32px 56px; align-items: flex-start; padding-bottom: 72px; border-bottom: 1px solid #7D6C5F">
+<a href="sister.html" style="flex: 3 1 520px; min-width: 0; display: block; text-decoration: none">
+<img src="images/sister-home-2x.jpg" alt="Sister's home page: a personalized haircare library with an early access signup" style="display: block; width: 100%; height: auto; border: 1px solid #7D6C5F">
+</a>
+<div style="flex: 2 1 340px; min-width: 0">
+<p class="card-meta"><span>Product + Engineering</span><span class="card-status">Pre-launch</span><span class="card-milestone">Waitlist live</span></p>
+<h3 style="margin: 12px 0 0; font-weight: 400; font-size: clamp(30px, 4vw, 40px); line-height: 1.1">Sister</h3>
+<p class="card-owner">Product strategy, research, design and development</p>
+<p style="margin: 14px 0 0">A personal hair library for Black women to save stylists, salons, products and advice worth finding again. I work directly with Sister’s founder.</p>
+<p style="margin: 24px 0 0; font-family: 'Karla', sans-serif; font-size: 15px; display: flex; flex-wrap: wrap; gap: 4px 20px"><a href="sister.html" style="padding: 10px 0; font-weight: 600">Read the case study</a><a href="https://sisterhq.co" style="padding: 10px 0">Visit sisterhq.co</a></p>
+</div>
+</article>
 
-  <!-- PROJECTS -->
-  <section id="projects">
-    <div class="section-header reveal">
-      <span class="section-num">02</span>
-      <h2 class="section-title">Projects</h2>
-    </div>
-    <div class="projects-grid reveal">
+<article style="display: flex; flex-wrap: wrap-reverse; gap: 32px 56px; align-items: flex-end; padding: 72px 0; border-bottom: 1px solid #7D6C5F">
+<div style="flex: 2 1 340px; min-width: 0">
+<p class="card-meta"><span>Product, design and code</span><span class="card-status">Live</span><span class="card-milestone">Open to anyone</span></p>
+<h3 style="margin: 12px 0 0; font-weight: 400; font-size: clamp(30px, 4vw, 40px); line-height: 1.1">Hustle Board</h3>
+<p class="card-owner">Solo build: product, design and development</p>
+<p style="margin: 14px 0 0">One place to run a job search. It finds roles on company job boards, shows why they fit, tracks your pipeline and tailors your resume without inventing experience.</p>
+<p style="margin: 24px 0 0; font-family: 'Karla', sans-serif; font-size: 15px; display: flex; flex-wrap: wrap; gap: 4px 20px"><a href="hustle-board.html" style="padding: 10px 0; font-weight: 600">Read the case study</a><a href="https://hustleboard.vercel.app" style="padding: 10px 0">Try Hustle Board</a></p>
+</div>
+<a href="hustle-board.html" style="flex: 3 1 520px; min-width: 0; display: block; text-decoration: none">
+<img src="images/hb-pipeline-2x.jpg" alt="Hustle Board pipeline with today's focus and a board of roles by stage" style="display: block; width: 100%; height: auto; border: 1px solid #7D6C5F">
+</a>
+</article>
 
-      <!-- Card 1: Job Tracker -->
-      <div class="project-card card-1">
-        <div class="project-card-bg"></div>
-        <div class="project-card-overlay"></div>
-        <div class="project-card-content">
-          <div class="project-tag">Full Stack &middot; AI Product</div>
-          <div class="project-name">Job Tracker</div>
-          <p class="project-desc">
-            An AI-assisted job search OS that generates and tailors resumes to specific job descriptions while keeping leads, applications, reminders, and pipeline stages in one place.
-          </p>
-          <div class="project-stack">
-            <span class="tag">Next.js</span>
-            <span class="tag">TypeScript</span>
-            <span class="tag">Supabase</span>
-            <span class="tag">LLM</span>
-          </div>
-          <div class="project-links">
-            <a href="https://hustleboard.vercel.app" target="_blank" rel="noopener noreferrer" class="project-link">View live &rarr;</a>
-            <a href="https://github.com/kimberlybone/job-tracker" target="_blank" rel="noopener noreferrer" class="project-link">GitHub &rarr;</a>
-          </div>
-        </div>
-      </div>
+<article style="display: flex; flex-wrap: wrap; gap: 32px 56px; align-items: flex-start; padding: 72px 0; border-bottom: 1px solid #7D6C5F">
+<a href="outfit-planner.html" style="flex: 3 1 520px; min-width: 0; display: block; text-decoration: none">
+<img src="images/fits-closet-2x.jpg" alt="The fits closet: a grid of clothing photos with filters and a sidebar for planning tomorrow" style="display: block; width: 100%; height: auto; border: 1px solid #7D6C5F">
+</a>
+<div style="flex: 2 1 340px; min-width: 0">
+<p class="card-meta"><span>Product, design and code</span><span class="card-status">In progress</span><span class="card-milestone">Private build with real data</span></p>
+<h3 style="margin: 12px 0 0; font-weight: 400; font-size: clamp(30px, 4vw, 40px); line-height: 1.1">Outfit Planner</h3>
+<p class="card-owner">Solo build: product, design and development</p>
+<p style="margin: 14px 0 0">A closet app for people who own plenty but wear the same five things. Build outfits from what you own, plan a trip day by day and pack from the finished plan.</p>
+<p style="margin: 24px 0 0; font-family: 'Karla', sans-serif; font-size: 15px; display: flex; flex-wrap: wrap; gap: 4px 20px"><a href="outfit-planner.html" style="padding: 10px 0; font-weight: 600">Read the case study</a></p>
+</div>
+</article>
+</section>
 
-      <!-- Card 2: Outfit Planning -->
-      <div class="project-card card-2">
-        <div class="project-card-bg"></div>
-        <div class="project-card-overlay"></div>
-        <div class="project-card-content">
-          <div class="project-tag">Full Stack &middot; Consumer Product</div>
-          <div class="project-name">Outfit Planner</div>
-          <p class="project-desc">
-            A digital wardrobe and trip planning app for organizing your closet, building outfits, and packing more intentionally for travel.
-          </p>
-          <div class="project-stack">
-            <span class="tag">React</span>
-            <span class="tag">TypeScript</span>
-            <span class="tag">Vite</span>
-            <span class="tag">Supabase</span>
-          </div>
-          <div class="project-links">
-            <span class="project-link-disabled">Link coming soon</span>
-          </div>
-        </div>
-      </div>
 
-      <!-- Card 3: Coming soon -->
-      <div class="project-card card-3">
-        <div class="project-card-bg"></div>
-        <div class="project-card-overlay"></div>
-        <div class="project-card-content">
-          <div class="project-tag">API &middot; Backend</div>
-          <div class="project-name">Project Title <span class="project-wip">Coming Soon</span></div>
-          <p class="project-desc">
-            A short description of what this project does and why you built it. What problem does it solve? Who is it for?
-          </p>
-          <div class="project-stack">
-            <span class="tag">Ruby on Rails</span>
-            <span class="tag">PostgreSQL</span>
-            <span class="tag">AWS</span>
-          </div>
-          <div class="project-links">
-            <span class="project-link-disabled">Link coming soon</span>
-          </div>
-        </div>
-      </div>
 
-      <!-- Card 4: More on the way -->
-      <div class="card-more">
-        <div class="card-more-inner">
-          <div class="card-more-title">More on the way</div>
-          <p>Currently building something new.</p>
-        </div>
-      </div>
 
-    </div>
-  </section>
+<section id="experience" aria-labelledby="exp-h" style="max-width: 1240px; margin: 0 auto; padding: 0 24px 112px">
+<h2 id="exp-h" style="margin: 0 0 32px; font-weight: 400; font-size: 34px">Experience</h2>
 
-  <!-- EXPERIENCE -->
-  <section id="experience">
-    <div class="section-header reveal">
-      <span class="section-num">03</span>
-      <h2 class="section-title">Experience</h2>
-    </div>
-    <div class="exp-list">
+<div style="display: flex; flex-wrap: wrap; gap: 24px 56px; padding: 0 0 56px; border-bottom: 1px solid #7D6C5F">
+<div style="flex: 0 0 300px; min-width: 0">
+<h3 style="margin: 0; font-weight: 400; font-size: clamp(28px, 3.5vw, 36px); line-height: 1.1">Amazon One&nbsp;Medical</h3>
+<p style="margin: 10px 0 0; font-family: 'Karla', sans-serif; font-size: 15px; font-weight: 600">Software Engineer II · Billing Platform</p>
+<p style="margin: 4px 0 0; font-family: 'Karla', sans-serif; font-size: 14px; color: #C4B8A8">2022 to 2026</p>
+</div>
+<div style="flex: 999 1 480px; min-width: 0; max-width: 680px">
+<p style="margin: 0">I worked on One Medical’s billing platform, from the balance information patients see to the tools operations teams use behind the scenes. I wrote specs, worked directly with the teams closest to the problems and managed phased rollouts.</p>
+<div style="margin: 28px 0 0">
+<div class="exp-theme"><h4 class="exp-theme-h">Product definition</h4><p style="margin: 8px 0 0">Defined when the patient-facing AI assistant should surface existing payment links and set its pre-launch reliability criteria with TPMs and applied scientists.</p></div>
+<div class="exp-theme"><h4 class="exp-theme-h">Product insights</h4><p style="margin: 8px 0 0">Built operational dashboards that helped the team decide what to improve next.</p></div>
+<div class="exp-theme"><h4 class="exp-theme-h">Cross-functional delivery</h4><p style="margin: 8px 0 0">Led operations, revenue and engineering stakeholders through a workshop that set priorities for four initiatives.</p><p style="margin: 8px 0 0">Owned the patient balance display from build through launch as the sole engineer, using phased rollouts and defined go/no-go checks.</p></div>
+<div class="exp-theme"><h4 class="exp-theme-h">Engineering execution</h4><p style="margin: 8px 0 0">Built an OCR document-capture flow that replaced manual data entry for front desk teams.</p></div>
+</div>
+<p class="exp-stack"><span class="exp-stack-label">Technologies</span>React, TypeScript, GraphQL, Ruby on Rails</p>
+</div>
+</div>
 
-      <div class="exp-item reveal">
-        <div class="exp-meta">
-          <div class="exp-date">2022 — Present</div>
-          <div class="exp-company">One Medical / Amazon</div>
-        </div>
-        <div class="exp-content">
-          <div class="exp-role">Software Engineer</div>
-          <div class="exp-body">
-            Built and maintained full-stack features for patient-facing healthcare products, spanning backend APIs, frontend interfaces, internal tooling, and test coverage. Contributed to React component systems, GraphQL API improvements, and product-facing experiences used by patients and care teams. Over time, I grew from working within tightly scoped implementations to owning broader product and platform work across multiple teams.
-          </div>
-          <div class="exp-tags">
-            <span class="tag-light">React</span>
-            <span class="tag-light">TypeScript</span>
-            <span class="tag-light">GraphQL</span>
-            <span class="tag-light">Apollo</span>
-            <span class="tag-light">Ruby on Rails</span>
-            <span class="tag-light">Cypress</span>
-            <span class="tag-light">Storybook</span>
-          </div>
-        </div>
-      </div>
+<div style="display: flex; flex-wrap: wrap; gap: 24px 56px; padding: 40px 0; border-bottom: 1px solid #7D6C5F">
+<div style="flex: 0 0 300px; min-width: 0">
+<h3 style="margin: 0; font-weight: 400; font-size: 26px; line-height: 1.2">MetLife</h3>
+<p style="margin: 10px 0 0; font-family: 'Karla', sans-serif; font-size: 15px; font-weight: 600">Robotic Process Automation Engineer</p>
+<p style="margin: 4px 0 0; font-family: 'Karla', sans-serif; font-size: 14px; color: #C4B8A8">2021 to 2022</p>
+</div>
+<p style="flex: 999 1 480px; min-width: 0; max-width: 680px; margin: 0">Scoped and built automations with internal operations teams, then trained them to use and maintain the new tools.</p>
+</div>
 
-      <div class="exp-item reveal">
-        <div class="exp-meta">
-          <div class="exp-date">2021 — 2022</div>
-          <div class="exp-company">MetLife</div>
-        </div>
-        <div class="exp-content">
-          <div class="exp-role">Junior Robotics Process Software Engineer</div>
-          <div class="exp-body">
-            Designed and deployed robotic process automation workflows to reduce manual overhead across internal operations. Gained early experience working within enterprise engineering teams and shipping reliable automation in regulated environments.
-          </div>
-          <div class="exp-tags">
-            <span class="tag-light">RPA</span>
-            <span class="tag-light">Python</span>
-            <span class="tag-light">Automation</span>
-          </div>
-        </div>
-      </div>
+<div style="display: flex; flex-wrap: wrap; gap: 24px 56px; padding: 40px 0 0">
+<div style="flex: 0 0 300px; min-width: 0">
+<h3 style="margin: 0; font-weight: 400; font-size: 26px; line-height: 1.2">Education and community</h3>
+</div>
+<div style="flex: 999 1 480px; min-width: 0; max-width: 680px">
+<p style="margin: 0">I studied nutrition science and Spanish at UNC Greensboro, then full-stack web development at Flatiron School. That mix still shapes how I approach product work: understand the context, translate between people and make the next step clear.</p>
+<p style="margin: 14px 0 0">From 2022 to 2025, I facilitated a DevColor squad of six engineers and organized conversations on career growth, financial literacy and professional development.</p>
+</div>
+</div>
+</section>
 
-    </div>
-  </section>
+<section aria-labelledby="also-h" style="max-width: 1240px; margin: 0 auto; padding: 0 24px 112px">
+<h2 id="also-h" style="margin: 0 0 28px; font-weight: 400; font-size: 26px">Community</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 32px 48px">
+<div style="flex: 1 1 300px; min-width: 0; max-width: 720px">
+<h3 style="margin: 0; font-family: 'Karla', sans-serif; font-weight: 600; font-size: 15px">For The Girls, New York <span style="font-weight: 400; color: #C4B8A8">· NYC lead</span></h3>
+<p style="margin: 6px 0 0; font-size: 19px">I’m launching the NYC chapter of a community that brings women offline and into the same room. I shape each event from concept to partner and venue, including small classes at Black-owned studios and supper clubs.</p>
+</div>
+</div>
+</section>
 
-  <!-- CONTACT -->
-  <section id="contact">
-    <div class="section-header reveal">
-      <span class="section-num">04</span>
-      <h2 class="section-title">Get in touch</h2>
-    </div>
-    <div class="contact-grid">
-      <p class="contact-intro reveal">
-        I'm currently open to new opportunities, especially product-forward, full-stack roles at startups in NYC. If something you're building sounds like a fit, I'd love to talk.
-      </p>
-      <div class="contact-links reveal">
-        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=bone.kimberlyd@gmail.com" target="_blank" rel="noopener noreferrer" class="contact-link">
-          <span class="contact-link-label">Email</span>
-          <span class="contact-link-value">bone.kimberlyd@gmail.com</span>
-          <span class="contact-arrow">&rarr;</span>
-        </a>
-        <a href="https://linkedin.com/in/kimberly-bone" target="_blank" rel="noopener noreferrer" class="contact-link">
-          <span class="contact-link-label">LinkedIn</span>
-          <span class="contact-link-value">https://linkedin.com/in/kimberly-bone</span>
-          <span class="contact-arrow">&rarr;</span>
-        </a>
-        <a href="https://github.com/kimberlybone" target="_blank" rel="noopener noreferrer" class="contact-link">
-          <span class="contact-link-label">GitHub</span>
-          <span class="contact-link-value">github.com/kimberlybone</span>
-          <span class="contact-arrow">&rarr;</span>
-        </a>
-        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=bone.kimberlyd@gmail.com&su=Resume%20request" target="_blank" rel="noopener noreferrer" class="contact-link">
-          <span class="contact-link-label">Resume</span>
-          <span class="contact-link-value">Available on request</span>
-          <span class="contact-arrow">&rarr;</span>
-        </a>
-      </div>
-    </div>
-  </section>
+<footer style="max-width: 1240px; margin: 0 auto; padding: 40px 24px 56px; border-top: 1px solid #7D6C5F">
+<p style="margin: 0; font-size: 34px; line-height: 1.25; max-width: 820px">I’m looking for a product or technical program role where I can turn ambiguous problems into useful products people rely on every day. <a href="mailto:bone.kimberlyd@gmail.com">Say hi.</a></p>
+<p style="margin: 40px 0 0; display: flex; flex-wrap: wrap; gap: 4px 20px; font-family: 'Karla', sans-serif; font-size: 14px">
+<a href="mailto:bone.kimberlyd@gmail.com" style="padding: 10px 0">bone.kimberlyd@gmail.com</a>
+<a href="https://linkedin.com/in/kimberly-bone" style="padding: 10px 0">LinkedIn</a>
+<a href="https://github.com/kimberlybone" style="padding: 10px 0">GitHub</a>
+<span style="padding: 10px 0; color: #C4B8A8">Brooklyn, NY</span>
+</p>
+</footer>
 
-  <footer>
-    <p>© 2026 Kimberly Bone</p>
-    <p>Software Engineer — New York City</p>
-  </footer>
-
-  <script>
-    // Force top on load
-    history.scrollRestoration = 'manual';
-    window.scrollTo(0, 0);
-
-    // Scroll reveal
-    const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => entry.target.classList.add('visible'), i * 80);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-    reveals.forEach(el => observer.observe(el));
-
-    // Active nav link
-    const sections = document.querySelectorAll('section[id], nav');
-    const navLinks = document.querySelectorAll('.nav-links a');
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const id = entry.target.id;
-          navLinks.forEach(a => {
-            a.style.color = a.getAttribute('href') === `#${id}` ? 'var(--ink)' : '';
-          });
-        }
-      });
-    }, { threshold: 0.4 });
-    document.querySelectorAll('section[id]').forEach(s => io.observe(s));
-  </script>
-
+</div>
 </body>
 </html>
