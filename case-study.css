@@ -101,4 +101,7 @@ figcaption{margin-top:10px;font-size:14px;line-height:1.5;color:var(--muted);max
 .site-footer .rule{border-top:1px solid var(--line);padding-top:40px}
 .footer-cta{margin:0;font-family:var(--serif);font-size:32px;line-height:1.25;max-width:760px}
 .footer-links{margin:32px 0 0;display:flex;flex-wrap:wrap;gap:4px 24px;font-size:14px}
+.footer-links{align-items:center}
 .footer-links a{padding:10px 0}
+.footer-links .social-link{display:inline-flex;flex:0 0 44px;align-items:center;justify-content:center;width:44px;height:44px;margin:0 -11px;padding:0;color:var(--ink)}
+.footer-links .social-link:hover{color:var(--gold-hi)}
